@@ -1,0 +1,30 @@
+{
+  "name": "basic-deferred",
+  "version": "1.0.0",
+  "description": "Deferred in the most basic way",
+  "main": "basic-deferred.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lkzwieder/basic-deferred.git"
+  },
+  "keywords": [
+    "deferred",
+    "basic",
+    "simple",
+    "resolve",
+    "reject",
+    "when",
+    "then",
+    "done",
+    "fail"
+  ],
+  "author": "Lucas Tettamanti <lucas.tettamanti@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lkzwieder/basic-deferred/issues"
+  },
+  "homepage": "https://github.com/lkzwieder/basic-deferred#readme"
+}
