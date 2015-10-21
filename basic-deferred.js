@@ -1,4 +1,4 @@
-exports.Deferred = function(verbose) {
+module.exports = function(verbose) {
   var _successStoreArr = [];
   var _failStoreArr = [];
   var _thenCount = null;
@@ -7,12 +7,10 @@ exports.Deferred = function(verbose) {
 
   var _executeWhen = function(isSuccess, args, pos) {
     _thenCount--;
-    args = args[pos] = args[0];
-    delete args[0];
     if(isSuccess) {
-      _successStoreArr.push(args);
+      _successStoreArr[pos] = args[0];
     } else {
-      _failStoreArr.push(args);
+      _failStoreArr[pos] = args[0];
       if(verbose) console.log("The argument in the position number: " + pos + " has failed");
     }
     if(!_thenCount) {
