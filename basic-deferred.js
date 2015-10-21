@@ -1,4 +1,8 @@
-exports.Deferred = function(verbose) {
+module.exports = function(options) {
+  options = options || {
+    verbose: false,
+    processOnFail: false
+  };
   var _successStoreArr = [];
   var _failStoreArr = [];
   var _thenCount = null;
@@ -7,22 +11,25 @@ exports.Deferred = function(verbose) {
 
   var _executeWhen = function(isSuccess, args, pos) {
     _thenCount--;
-    args = args[pos] = args[0];
-    delete args[0];
     if(isSuccess) {
-      _successStoreArr.push(args);
+      _successStoreArr[pos] = args[0];
     } else {
-      _failStoreArr.push(args);
-      if(verbose) console.log("The argument in the position number: " + pos + " has failed");
-    }
-    if(!_thenCount) {
-      if(_successStoreArr.length) {
-        _successStoreArr = Array.prototype.slice.call(_successStoreArr);
-        _doneCb.apply(null, _successStoreArr);
+      _failStoreArr[pos] = args[0];
+      if(!options.processOnFail) {
+        _thenCount = false;
+        _successStoreArr = [];
       }
+      if(options.verbose) console.log("The argument in the position number: " + pos + " has failed");
+    }
+
+    if(!_thenCount) {
       if(_failStoreArr.length) {
         _failStoreArr = Array.prototype.slice.call(_failStoreArr);
         _failCb.apply(null, _failStoreArr);
+      }
+      if(_successStoreArr.length) {
+        _successStoreArr = Array.prototype.slice.call(_successStoreArr);
+        _doneCb.apply(null, _successStoreArr);
       }
     }
   };
