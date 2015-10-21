@@ -9,16 +9,16 @@ var dummyFn = function(val, time, resolve) {
 };
 
 var b = dummyFn(21, 2000, true);
-var c = dummyFn(1000, 400, true);
+var c = dummyFn(1000, 400, false);
 var d = dummyFn(1400, 3000, true);
 var e = dummyFn(5, 1500, true);
 
-var deferred = new Deferred(true);
+var deferred = new Deferred({verbose: true, processOnFail: true});
 deferred.when(b, c, d, e)
   .then(function(b, c, d, e) {
     console.log(b, c, d, e);
   })
-  .fail(function() {
+  .fail(function(b, c, d, e) {
     console.log("FAIL");
-    console.log(arguments);
+    console.log(b, c, d, e);
   });
