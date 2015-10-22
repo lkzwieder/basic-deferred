@@ -1,24 +1,22 @@
-var Deferred = require('../basic-deferred.js');
+var Deferred = require('../basic-deferred');
 
-var dummyFn = function(val, time, resolve) {
+var dummyFn = function(value, isSuccess, time) {
   var deferred = new Deferred();
   setTimeout(function() {
-    resolve ? deferred.resolve(val) : deferred.reject(val);
+    isSuccess ? deferred.resolve(value) : deferred.reject("failed");
   }, time);
   return deferred.promise();
 };
 
-var b = dummyFn(21, 2000, true);
-var c = dummyFn(1000, 400, false);
-var d = dummyFn(1400, 3000, true);
-var e = dummyFn(5, 1500, true);
+var a = dummyFn("Hello", true, 3000); // 3 seconds
+var b = dummyFn("Marty Mc Fly!", false, 1000); // 1 second
+var c = dummyFn("Welcome to 2015, sorry we don't have hoverboards yet!", true, 5000); // 5 seconds
 
-var deferred = new Deferred({verbose: true, processOnFail: true});
-deferred.when(b, c, d, e)
-  .then(function(b, c, d, e) {
-    console.log(b, c, d, e);
+var deferred = new Deferred();
+deferred.when(a, b, c)
+  .then(function(aRes, bRes, cRes) {
+    console.log(aRes, bRes, cRes);
   })
-  .fail(function(b, c, d, e) {
-    console.log("FAIL");
-    console.log(b, c, d, e);
+  .fail(function() {
+    console.log(arguments);
   });
