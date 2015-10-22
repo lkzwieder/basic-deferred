@@ -86,4 +86,4 @@ deferred.when(a, b, c)
 What is that `undefined`?, the second param fails, and too soon. So the first never was processed and, because of that, is undefined. If we want to process all no matter what we can set to true the `processOnFail` option.
 
 ### Version
-0.0.4
+0.0.5

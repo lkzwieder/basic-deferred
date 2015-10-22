@@ -1,6 +1,6 @@
 {
   "name": "basic-deferred",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Deferred in the most basic way",
   "main": "basic-deferred.js",
   "scripts": {
